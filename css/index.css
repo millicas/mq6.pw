@@ -1,0 +1,334 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #080808;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-border: rgba(255, 255, 255, 0.1);
+  --text: #f0f0f0;
+  --muted: rgba(255, 255, 255, 0.4);
+  --accent: #7b70e0;
+  --accent2: #7e58e6;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "JetBrains Mono", monospace;
+  overflow: hidden;
+}
+
+#enter-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  z-index: 100;
+  cursor: pointer;
+  transition: opacity 0.8s ease;
+}
+#enter-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.enter-pulse {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse-ring 2s ease-in-out infinite;
+  margin-bottom: 24px;
+}
+.enter-pulse svg {
+  width: 32px;
+  height: 32px;
+  fill: var(--bg);
+}
+@keyframes pulse-ring {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4),
+      0 0 0 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.1),
+      0 0 0 40px rgba(255, 255, 255, 0.05);
+  }
+}
+.enter-text {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.card-wrapper {
+  perspective: 1200px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.card-wrapper.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card {
+  width: 680px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: 32px;
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.1s ease;
+}
+
+.card-top {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.card-info {
+  flex: 1;
+  padding-top: 4px;
+}
+.username {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.bio {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 380px;
+}
+
+.music-badge {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 6px 14px 6px 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.music-badge:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.music-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+}
+.bar {
+  width: 3px;
+  background: var(--text);
+  border-radius: 2px;
+  animation: bar-bounce 0.8s ease-in-out infinite alternate;
+}
+.bar:nth-child(1) {
+  height: 6px;
+  animation-delay: 0s;
+}
+.bar:nth-child(2) {
+  height: 12px;
+  animation-delay: 0.15s;
+}
+.bar:nth-child(3) {
+  height: 8px;
+  animation-delay: 0.3s;
+}
+.bar:nth-child(4) {
+  height: 14px;
+  animation-delay: 0.1s;
+}
+.bar.paused {
+  animation-play-state: paused;
+}
+
+@keyframes bar-bounce {
+  from {
+    transform: scaleY(0.4);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.music-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text);
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.divider {
+  height: 1px;
+  background: var(--card-border);
+  margin-bottom: 20px;
+}
+
+.buttons-row {
+  display: flex;
+  gap: 12px;
+}
+
+.link-btn {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.link-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.04)
+  );
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.link-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+.link-btn:hover::after {
+  opacity: 1;
+}
+.link-btn:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.btn-icon svg {
+  width: 16px;
+  height: 16px;
+}
+.btn-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+.btn-text {
+  flex: 1;
+}
+.btn-label {
+  font-size: 13px;
+  font-weight: 700;
+  display: block;
+}
+.btn-sublabel {
+  font-size: 11px;
+  color: var(--muted);
+  display: block;
+  margin-top: 1px;
+}
+
+.btn-arrow {
+  color: var(--muted);
+  transition: transform 0.2s, color 0.2s;
+}
+.link-btn:hover .btn-arrow {
+  transform: translate(2px, -2px);
+  color: var(--text);
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 16px;
+}
+
+.song-ticker {
+  display: none;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.2);
+  margin-top: 8px;
+  text-align: right;
+  font-style: italic;
+}
+.song-ticker.visible {
+  display: block;
+}
