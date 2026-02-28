@@ -1,1 +1,56 @@
-^_^
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mq</title>
+<link rel="icon" type="image/x-icon" href="https://autism.lat/oIvaA.png">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://autism.lat/wEFws.png">
+<meta name="theme-color" content="#0A0A0A">
+<meta property="og:title" content="mq6.pw">
+<meta property="og:description" content="my biolink">
+<meta name="viewport" content="width=device-width">
+<link href="./css/index.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="enter-screen" onclick="enterSite()">
+  <div class="enter-pulse">
+    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  </div>
+  <p class="enter-text">Click to enter</p>
+</div>
+<div class="card-wrapper" id="card-wrapper">
+  <div class="card" id="card">
+    <div class="music-badge" onclick="toggleMusic()" title="Toggle music">
+      <div class="music-bars" id="bars">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <span class="music-label" id="song-name">Loading...</span>
+    </div>
+    <div class="card-top">
+      <div class="avatar">
+        <img class="avatar-placeholder" src="https://api.lanyard.rest/1442791669220249631.png">
+      </div>
+      <div class="card-info">
+        <div class="username">mq</div>
+        <div class="bio">16</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="buttons-row" id="buttons-row">
+    </div>
+    <div class="card-footer">
+    </div>
+  </div>
+</div>
+
+<audio id="audio-player" loop></audio>
+<script src="./js/index.js"></script>
+</body>
+</html>
